@@ -3,7 +3,7 @@ export default async function handler(req, res) {
   const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/umkm?select=*`, {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/db_umkm?select=*`, {
       headers: {
         apikey: SUPABASE_KEY,
         Authorization: `Bearer ${SUPABASE_KEY}`,
