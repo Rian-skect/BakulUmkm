@@ -1,31 +1,29 @@
 <?php
 header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
 
-// Ambil ENV
 $supabase_url = getenv("SUPABASE_URL") . "/rest/v1/db_umkm?select=*";
 $supabase_key = trim(getenv("SUPABASE_KEY"));
 
-if (!$supabase_url || !$supabase_key) {
-    echo json_encode(["error" => "ENV tidak terbaca"]);
-    exit;
-}
-
-// Buat context request
-$options = [
-    "http" => [
-        "method" => "GET",
-        "header" => "apikey: {$supabase_key}\r\n" .
-                    "Authorization: Bearer {$supabase_key}\r\n" .
-                    "Content-Type: application/json\r\n"
-    ]
+// Buat request
+$headers = [
+    "apikey: $supabase_key",
+    "Authorization: Bearer $supabase_key",
+    "Content-Type: application/json"
 ];
 
-$context = stream_context_create($options);
-$response = file_get_contents($supabase_url, false, $context);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $supabase_url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_HEADER, true); // supaya response header ikut tampil
+curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 
-if ($response === FALSE) {
-    echo json_encode(["error" => "Request gagal"]);
-} else {
-    echo $response;
-}
+$response = curl_exec($ch);
+$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+echo json_encode([
+    "sent_headers" => $headers,
+    "http_code" => $http_code,
+    "response" => $response
+]);
