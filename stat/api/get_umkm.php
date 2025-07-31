@@ -2,10 +2,9 @@
 header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *"); 
 
-$supabase_url = getenv("https://gykbniseplrqvrnabzdh.supabase.co") . "/rest/v1/db_umkm";
-$supabase_key = trim(getenv("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w")); // trim untuk hilangkan newline
+$supabase_url = getenv("SUPABASE_URL") . "/rest/v1/db_umkm";
+$supabase_key = trim(getenv("SUPABASE_KEY")); // trim untuk hapus newline
 
-// Debug kalau ENV tidak terbaca
 if (!$supabase_url || !$supabase_key) {
     echo json_encode([
         "error" => "ENV tidak terbaca",
@@ -15,15 +14,13 @@ if (!$supabase_url || !$supabase_key) {
     exit;
 }
 
-// Set Header API
 $headers = [
     "apikey: {$supabase_key}",
     "Authorization: Bearer {$supabase_key}",
     "Content-Type: application/json",
-    "Origin: https://bakul-umkm.vercel.app" // penting untuk beberapa kasus
+    "Origin: https://bakul-umkm.vercel.app"
 ];
 
-// cURL ke Supabase
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $supabase_url . "?select=*");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -35,7 +32,6 @@ $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $error = curl_error($ch);
 curl_close($ch);
 
-// Output JSON
 echo json_encode([
     "http_code" => $http_code,
     "error" => $error,
