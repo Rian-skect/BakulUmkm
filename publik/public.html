@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KELURAHAN KAHURIPAN - Layanan Publik</title>
+  <link rel="stylesheet" href="public.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="public.js"></script>
+</head>
+<body class="gradient-bg-1 font-sans text-[#6b5842] min-h-screen">
+
+  <!-- Desktop Navbar -->
+  <nav class="desktop-navbar hidden lg:block sticky top-0 z-50">
+    <div class="px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Left: Logo & Title -->
+        <div class="flex items-center gap-4">
+          <img src="../image/logo.png" alt="Logo" class="w-12" />
+          <div>
+            <h2 class="text-xl font-bold bg-gradient-to-r from-[#a67c52] to-[#6b5842] bg-clip-text text-transparent">
+              BAKUL KAHURIPAN
+            </h2>
+            <p class="text-sm opacity-70 mt-1">Dashboard Statistik UMKM</p>
+          </div>
+        </div>
+
+        <!-- Center: Navigation Menu -->
+        <ul class="flex gap-8 text-sm font-medium">
+          <li>
+            <a href="/index.html" class="nav-item flex items-center gap-2 py-2 hover:text-[#a67c52] transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+              </svg>
+              Beranda
+            </a>
+          </li>
+          <li>
+            <a href="/stat/statistik.html" class="nav-item flex items-center gap-2 py-2 hover:text-[#a67c52] transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+              Statistik
+            </a>
+          </li>
+          <li>
+            <a href="/peta/map.html" class="nav-item flex items-center gap-2 py-2 hover:text-[#a67c52] transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                  <circle cx="12" cy="9" r="2.5"/>
+                </svg>
+                Pemetaan
+              </a>
+            </li>
+            <li>
+              <a href="/publik/public.html" class="nav-item nav-active flex items-center gap-2 py-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+                Layanan Publik
+              </a>
+            </li>
+        </ul>
+
+        <!-- Right: Search -->
+        <div class="relative max-w-md w-full">
+          <input type="search" placeholder="Cari UMKM..." 
+            class="w-full pl-12 pr-4 py-3 rounded-full border-2 border-[#d7c0a6] focus:border-[#a67c52] focus:outline-none transition-all duration-300 bg-white/70 backdrop-blur-sm" />
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#a67c52]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Header -->
+<header class="mobile-header lg:hidden m-4 mb-8 p-4 rounded-2xl flex items-center justify-between glass-card">
+  <div class="flex items-center gap-4">
+    <!-- White Mobile Menu Button -->
+    <button id="sidebarToggle" class="hamburger-btn p-3 rounded-full transition-all duration-300">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Logo & Title -->
+    <div class="flex items-center gap-3">
+      <img src="../image/logo.png" alt="Logo" class="w-10 h-10"/>
+      <div>
+        <h2 class="text-base font-bold bg-gradient-to-r from-[#a67c52] to-[#6b5842] bg-clip-text text-transparent leading-tight">
+          BAKUL KAHURIPAN
+        </h2>
+        <p class="text-xs opacity-70 leading-tight">Dashboard Statistik UMKM</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Search -->
+  <div class="relative w-40 sm:w-48">
+    <input type="search" placeholder="Cari..." 
+      class="w-full pl-10 pr-4 py-2 rounded-full border-2 border-[#d7c0a6] focus:border-[#a67c52] focus:outline-none transition-all duration-300 bg-white/70 text-sm" />
+    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a67c52]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="7"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  </div>
+</header>
+
+  <!-- Sidebar overlay for mobile -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-[var(--color-bg-sidebar)] text-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out lg:hidden">
+    <div class="p-6 flex flex-col h-full">
+      <div class="flex items-center gap-4 mb-8">
+        <img src="../image/logo.png" alt="Logo" class="w-12"/>
+        <div>
+          <h1 class="font-bold text-xl select-none">BAKUL Kahuripan</h1>
+          <span class="text-xs opacity-80 select-none">Portal Digital UMKM</span>
+        </div>
+      </div>
+      <nav class="flex flex-col gap-2 text-sm font-semibold flex-grow">
+            <a href="/index.html" class="nav-link flex items-center gap-3 rounded px-3 py-2 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+                <span>Beranda</span>
+            </a>
+            
+            <a href="/stat/statistik.html" class="nav-link flex items-center gap-3 rounded px-3 py-2 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                <span>Statistik</span>
+            </a>
+            
+            <a href="/peta/map.html" class="nav-link flex items-center gap-3 rounded px-3 py-2 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                    <circle cx="12" cy="9" r="2.5"/>
+                </svg>
+                <span>Pemetaan</span>
+            </a>
+            
+            <a href="/publik/public.html" class="nav-link nav-active flex items-center gap-3 rounded px-3 py-2 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+                <span>Layanan Publik</span>
+            </a>
+        </nav>
+    
+     <button id="sidebarClose" class="mt-auto self-start p-2 rounded-lg bg-[#C49E8A]/30 hover:bg-[#6f4e37]/50 text-[var(--color-bg-sidebar)] transition-colors lg:hidden" aria-label="Close menu">
+        <svg class="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 py-8 lg:py-12">
+    
+    <!-- Layanan Publik Section -->
+    <section class="mb-12 lg:mb-16">
+      <h2 class="font-bold text-2xl lg:text-3xl mb-8 text-[#4B453A]">Layanan Publik</h2>
+      
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8">
+        
+        <!-- Card 1: Pendaftaran NIB -->
+        <article class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div class="mb-6 w-full h-48 flex items-center justify-center overflow-hidden rounded-lg bg-gray-50">
+            <img 
+              src="../image/nib.png" 
+              alt="Poster Pendaftaran NIB dengan warna biru dan kuning, menampilkan ikon dokumen dan simbol pemerintah" 
+              class="object-contain w-full h-full hover:scale-105 transition-transform duration-300" 
+            />
+          </div>
+          <h3 class="font-bold text-xl mb-3 text-[#4B453A]">Pendaftaran NIB</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed flex-grow">NIB (Nomor Induk Berusaha) adalah nomor identitas pelaku usaha yang digunakan dalam pengurusan perizinan di Indonesia.</p>
+          <a href="https://oss.go.id/" target="_blank" rel="noopener noreferrer"
+            class="w-full bg-[#BC986A] text-white rounded-lg px-6 py-3 font-semibold hover:bg-[#a57f39] focus:outline-none focus:ring-4 focus:ring-[#BC986A] focus:ring-opacity-50 transition-all duration-200 text-center block">
+            Daftar Sekarang
+          </a>
+        </article>
+
+        <!-- Card 2: Sertifikat Halal -->
+        <article class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div class="mb-6 w-full h-48 flex items-center justify-center overflow-hidden rounded-lg bg-gray-50">
+            <img 
+              src="../image/halal.png" 
+              alt="Gambar ilustrasi dokumen sertifikat halal dengan latar belakang kantor dan beberapa tangan menunjukkan dokumen" 
+              class="object-contain w-full h-full hover:scale-105 transition-transform duration-300" 
+            />
+          </div>
+          <h3 class="font-bold text-xl mb-3 text-[#4B453A]">Membuat Sertifikat Halal</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed flex-grow">Proses pengajuan sertifikat halal bagi produk UMKM untuk menambah kepercayaan pelanggan dan mempermudah pemasaran.</p>
+           <a href="https://halalmui.org/" target="_blank" rel="noopener noreferrer"
+            class="w-full bg-[#BC986A] text-white rounded-lg px-6 py-3 font-semibold hover:bg-[#a57f39] focus:outline-none focus:ring-4 focus:ring-[#BC986A] focus:ring-opacity-50 transition-all duration-200 text-center block">
+            Daftar Sekarang
+          </a>
+        </article>
+
+        <!-- Card 3: Pengaduan UMKM -->
+        <article class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center border border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 sm:col-span-2 lg:col-span-1">
+          <div class="mb-6 w-full h-48 flex items-center justify-center overflow-hidden rounded-lg bg-gray-50">
+            <img 
+              src="../image/aduan.png" 
+              alt="Ilustrasi kuisioner dan grafik statistik berwarna cerah dengan ikon kertas dan pensil" 
+              class="object-contain w-full h-full hover:scale-105 transition-transform duration-300" 
+            />
+          </div>
+          <h3 class="font-bold text-xl mb-3 text-[#4B453A]">Pengaduan UMKM</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed flex-grow">Pengaduan UMKM penting untuk mengetahui kondisi UMKM, kebutuhan dan tantangan yang mereka alami di wilayah kabupaten.</p>
+          <button class="w-full bg-[#BC986A] text-white rounded-lg px-6 py-3 font-semibold hover:bg-[#a57f39] focus:outline-none focus:ring-4 focus:ring-[#BC986A] focus:ring-opacity-50 transition-all duration-200">
+            Daftar Sekarang
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <!-- Panduan UMKM Section -->
+    <section class="bg-gradient-to-r from-[#C2AB81] to-[#BC986A] rounded-2xl p-8 lg:p-12 text-center shadow-xl">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="font-bold text-2xl lg:text-3xl mb-4 text-white">Panduan UMKM</h2>
+        <p class="mb-8 text-white/90 text-lg">Panduan praktis bagi pelaku UMKM di Kahuripan untuk tumbuh dan berkembang secara mandiri</p>
+        <button class="bg-white text-[#BC986A] py-3 px-8 rounded-lg font-semibold hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50 transition-all duration-200 text-lg">
+          Lihat Panduan UMKM
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Chatbot -->
+  <div class="chatbot-container">
+    <button class="chatbot-toggle" onclick="toggleChatbot()">
+        <img src="../image/chatbot.png" alt="Chatbot" class="chatbot-icon" style="width: 60px; height: 60px;" />
+    </button>
+
+    <div class="chatbot-window" id="chatbotWindow">
+      <div class="chatbot-header">
+        <div class="chatbot-title">
+          <img src="../image/chatbot.png" alt="Bot" class="chatbot-title-icon" />
+          Asisten BAKUL KAHURIPAN
+        </div>
+        <button class="chatbot-close" onclick="toggleChatbot()">×</button>
+      </div>
+
+      <div class="chatbot-messages" id="chatbotMessages">
+        <div class="message bot">
+          <div class="message-bubble">
+            Selamat datang di BAKUL KAHURIPAN! 👋<br>
+            Saya adalah asisten virtual Anda. Silakan pilih pertanyaan di bawah ini atau ketik pertanyaan Anda sendiri.
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-questions expanded" id="quickQuestions">
+        <div class="quick-questions-header" onclick="toggleQuestions()">
+          <div class="quick-questions-title">💡 Pertanyaan Populer</div>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="questions-content">
+          <button class="question-button" onclick="askQuestion('panduan-kbli')">📋 Panduan KBLI (Klasifikasi Baku
+            Lapangan Usaha)</button>
+          <button class="question-button" onclick="askQuestion('persyaratan-nib')">📄 Persyaratan Pengajuan NIB</button>
+          <button class="question-button" onclick="askQuestion('langkah-nib')">📝 Langkah-langkah Pengajuan NIB</button>
+          <button class="question-button" onclick="askQuestion('persyaratan-halal')">🥘 Persyaratan Sertifikat
+            Halal</button>
+          <button class="question-button" onclick="askQuestion('langkah-halal')">✅ Langkah-langkah Sertifikat
+            Halal</button>
+          <button class="question-button" onclick="askQuestion('bantuan-umkm')">💰 Program Bantuan UMKM</button>
+        </div>
+      </div>
+
+      <div class="chatbot-input">
+        <div class="input-group">
+          <input type="text" id="chatInput" placeholder="Ketik pertanyaan Anda..." onkeypress="handleEnter(event)">
+          <button class="send-button" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+    <footer class="bg-[#9e835f] text-[#f3ede1] py-12 mt-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Company Info -->
+          <div>
+            <div class="flex items-center gap-2 mb-4">
+              <img src="../image/logo.png" alt="Logo" class="w-12"/>
+              <span class="font-bold text-lg">BAKUL Kahuripan</span>
+            </div>
+            <p class="text-sm leading-relaxed mb-4 opacity-90">
+              Mendukung pertumbuhan usaha kecil dan menengah dengan produk berkualitas dan pelayanan terbaik sejak 2025.
+            </p>
+            <div class="flex space-x-4">
+              <a href="#" class="hover:text-gray-300 transition-colors" aria-label="Instagram">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5C19.65 2 22 4.35 22 7.75v8.5c0 3.4-2.35 5.75-5.75 5.75h-8.5C4.35 22 2 19.65 2 16.25v-8.5C2 4.35 4.35 2 7.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zM12 7.75a4.25 4.25 0 110 8.5 4.25 4.25 0 010-8.5zm0 2a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zm5-2.75a.75.75 0 110 1.5.75.75 0 010-1.5z"/></svg>
+              </a>
+              <a href="#" class="hover:text-gray-300 transition-colors" aria-label="Facebook">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.877v-6.987h-2.54v-2.89h2.54v-2.207c0-2.506 1.491-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.879h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/></svg>
+              </a>
+              <a href="#" class="hover:text-gray-300 transition-colors" aria-label="Twitter">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.97-2.48c-.88.52-1.85.9-2.88 1.1A4.51 4.51 0 0016.5 2a4.5 4.5 0 00-4.14 6.16 12.8 12.8 0 01-9.3-4.72 4.49 4.49 0 001.39 6.02 4.5 4.5 0 01-2.04-.56v.06A4.5 4.5 0 006 14.9a4.51 4.51 0 01-2.03.08 4.5 4.5 0 004.2 3.12A9 9 0 012 18.2 12.8 12.8 0 008.29 20 12.8 12.8 0 0020 7.73c0-.19 0-.37-.01-.56A9.23 9.23 0 0023 3z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3 class="font-bold text-lg mb-4">Link Cepat</h3>
+            <nav class="space-y-2 text-sm">
+              <a href="/index.html" class="block hover:text-gray-300 transition-colors">Beranda</a>
+              <a href="/stat/statistik.html" class="block hover:text-gray-300 transition-colors">Statistik</a>
+              <a href="/peta/map.html" class="block hover:text-gray-300 transition-colors">Pemetaan UMKM</a>
+              <a href="/publik/public.html" class="block hover:text-gray-300 transition-colors">Layanan Publik</a>
+            </nav>
+          </div>
+
+          <!-- Contact Info -->
+          <div>
+            <h3 class="font-bold text-lg mb-4">Kontak Kami</h3>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 mt-0.5 text-[#f3ede1]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                <div>
+                  <p class="font-semibold">Alamat</p>
+                  <p class="opacity-90">Jl. Kahuripan No. 123, Tawang, Kota Tasikmalaya</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 mt-0.5 text-[#f3ede1]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+                <div>
+                  <p class="font-semibold">Telepon</p>
+                  <p class="opacity-90">+62 22 1234 5678</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 mt-0.5 text-[#f3ede1]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                <div>
+                  <p class="font-semibold">Email</p>
+                  <p class="opacity-90">info@umkmkahuripan.id</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border-t border-[#b19b65] mt-8 pt-8 text-center">
+          <p class="text-sm opacity-90">© 2025 BAKUL UMKM Kelurahan Kahuripan. Hak cipta dilindungi undang-undang.</p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
