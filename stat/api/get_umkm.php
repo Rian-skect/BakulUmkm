@@ -1,38 +1,23 @@
 <?php
 header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
 
-// Ambil dari ENV
-$url = getenv("SUPABASE_URL");
-$key = trim(getenv("SUPABASE_KEY"));
+$url = "https://gykbniseplrqvrnabzdh.supabase.co/rest/v1/db_umkm?select=*";
+$key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w";
 
-if (!$url || !$key) {
-    echo json_encode(["error" => "ENV tidak terbaca"]);
-    exit;
-}
-
-$full_url = $url . "/rest/v1/db_umkm?select=*";
-
-// Buat request pakai file_get_contents
 $headers = [
     "apikey: {$key}",
     "Authorization: Bearer {$key}",
     "Content-Type: application/json"
 ];
 
-$opts = [
+$options = [
     "http" => [
         "method" => "GET",
         "header" => implode("\r\n", $headers)
     ]
 ];
 
-$context = stream_context_create($opts);
-$response = file_get_contents($full_url, false, $context);
+$context = stream_context_create($options);
+$response = file_get_contents($url, false, $context);
 
-if ($response === FALSE) {
-    echo json_encode(["error" => "Gagal ambil data dari Supabase"]);
-    exit;
-}
-
-echo $response;
+echo $response ?: json_encode(["error" => "Request gagal"]);
