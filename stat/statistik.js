@@ -326,17 +326,20 @@ let filteredData = [];
 let currentPage = 1;
 const itemsPerPage = 10;
 
+// Pastikan pakai createClient dari supabase-js
+const { createClient } = window.supabase;
+
 const supabaseUrl = 'https://gykbniseplrqvrnabzdh.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24i';
-const supabase = supabaseJs.createClient(supabaseUrl, supabaseKey);
+const supabaseKey = 'YOUR_ANON_KEY'; // pakai anon key, bukan service_role
+const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
 async function fetchUMKMData() {
-  const { data, error } = await supabase
-    .from('db_umkm') // GANTI dengan nama tabel UMKM di Supabase
+  const { data, error } = await supabaseClient
+    .from('db_umkm') // sesuaikan nama tabel
     .select('*');
 
   if (error) {
-    console.error('Error fetching data from Supabase:', error);
+    console.error('Error fetching data from Supabase:', error.message);
     const dataInfo = document.getElementById('data-info');
     if (dataInfo) {
       dataInfo.textContent = 'Terjadi kesalahan saat memuat data. Silakan refresh halaman.';
@@ -347,6 +350,7 @@ async function fetchUMKMData() {
 
   return data;
 }
+
 
 fetchUMKMData().then(data => {
   console.log("Data dari Supabase:", data);
