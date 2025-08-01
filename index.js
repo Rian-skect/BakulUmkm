@@ -137,55 +137,53 @@ function tampilkanUMKM(data, keyword = "") {
   `).join('');
 }
 
-    const memiliki = data.filter(d => d.status_nib?.toLowerCase().trim() === "sudah memiliki").length;
-    const belum = total - memiliki;
+  const total = data.length; // tambahkan ini ✅
 
-    const pelatihan_sudah = data.filter(d =>
-  d.status_plt?.toString().trim().toLowerCase() === "pernah"
-).length;
+  const memiliki = data.filter(d => d.status_nib?.toLowerCase().trim() === "sudah memiliki").length;
+  const belum = total - memiliki;
 
-    const pelatihan_belum = total - pelatihan_sudah;
+  const pelatihan_sudah = data.filter(d =>
+    d.status_plt?.toString().trim().toLowerCase() === "pernah"
+  ).length;
+  const pelatihan_belum = total - pelatihan_sudah;
 
     // === PIE CHART UMKM UNGGULAN ===
-    const pieLabels = ['Belum Memiliki SKU', 'Sudah Memiliki SKU'];
-    const pieData = [belum, memiliki];
-    const pieBackgroundColor = ['#D7C0A6', '#A67C52'];
 
     const ctxPie = document.getElementById('pieChart')?.getContext('2d');
-    if (ctxPie) {
-      new Chart(ctxPie, {
-        type: 'pie',
-        data: {
-          labels: pieLabels,
-          datasets: [{
-            data: pieData,
-            backgroundColor: pieBackgroundColor,
-            borderColor: ['#ffffff', '#ffffff'],
-            borderWidth: 0
-          }]
-        },
-        options: pieOptions,
-        plugins: [pieLabelsPlugin]
-      });
+      if (ctxPie) {
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: ['Belum Memiliki SKU', 'Sudah Memiliki SKU'],
+        datasets: [{
+          data: [belum, memiliki],
+          backgroundColor: ['#D7C0A6', '#A67C52'],
+          borderWidth: 0
+        }]
+      },
+      options: pieOptions,
+      plugins: [pieLabelsPlugin]
+    });
     }
 
-// === DOUGHNUT CHART PELATIHAN ===
-const ctxDoughnut = document.getElementById('doughnutChart')?.getContext('2d');
-if (ctxDoughnut) {
-  new Chart(ctxDoughnut, {
-    type: 'doughnut',
-    data: {
-      labels: ['Sudah Pelatihan', 'Belum Pelatihan'],
-      datasets: [{
-        data: [pelatihan_sudah, pelatihan_belum], // ✅ ini sudah dari database
-        backgroundColor: ['#A67C52', '#D7C0A6'],
-        borderWidth: 0
-      }]
-    },
-    options: doughnutOptions,
-    plugins: [doughnutLabelsPlugin]
-    
-  });
+ // DOUGHNUT CHART
+  const ctxDoughnut = document.getElementById('doughnutChart')?.getContext('2d');
+  if (ctxDoughnut) {
+    new Chart(ctxDoughnut, {
+      type: 'doughnut',
+      data: {
+        labels: ['Sudah Pelatihan', 'Belum Pelatihan'],
+        datasets: [{
+          data: [pelatihan_sudah, pelatihan_belum],
+          backgroundColor: ['#A67C52', '#D7C0A6'],
+          borderWidth: 0
+        }]
+      },
+      options: doughnutOptions,
+      plugins: [doughnutLabelsPlugin]
+    });
+  }
+});
 } 
 
   })
