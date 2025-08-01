@@ -182,11 +182,9 @@ function tampilkanUMKM(data, keyword = "") {
       options: doughnutOptions,
       plugins: [doughnutLabelsPlugin]
     });
-  }
-});
-} 
-
-  })
+}
+}
+)
   .catch(error => {
     console.error('Gagal mengambil data:', error);
   });
