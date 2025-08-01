@@ -216,10 +216,34 @@ document.addEventListener('DOMContentLoaded', function() {
         const itemsPerPage = 20;
 
     document.addEventListener('DOMContentLoaded', function () {
-    fetch('../stat/api/get_umkm.php')
-        .then(response => response.json())
-        .then(data => {
-            console.log("ISI DATA:", data); // ✅ debug
+    const { createClient } = window.supabase;
+
+const supabaseUrl = 'https://gykbniseplrqvrnabzdh.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w'; // pakai anon key, bukan service_role
+const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+async function fetchUMKMData() {
+  const { data, error } = await supabaseClient
+    .from('umkm') // sesuaikan nama tabel
+    .select('*');
+
+  if (error) {
+    console.error('Error fetching data from Supabase:', error.message);
+    const dataInfo = document.getElementById('data-info');
+    if (dataInfo) {
+      dataInfo.textContent = 'Terjadi kesalahan saat memuat data. Silakan refresh halaman.';
+      dataInfo.className = 'text-red-500 text-sm text-center py-4';
+    }
+    return [];
+  }
+
+  return data;
+}
+
+
+fetchUMKMData().then(data => {
+  console.log("Data dari Supabase:", data);
+
 
             const filtered = data.filter(item => item.lokasi_gmaps && item.lokasi_gmaps.trim() !== '');
 umkmData = filtered;
