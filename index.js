@@ -69,7 +69,7 @@ if (searchInput) {
   });
 }
     
- fetch('stat/api/get_umkm.php')
+ fetch('https://gykbniseplrqvrnabzdh.supabase.co/rest/v1/db_umkm?select=')
   .then(response => response.json())
   .then(data => {
     const total = data.length;
