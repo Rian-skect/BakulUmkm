@@ -327,7 +327,7 @@ let filteredData = [];
 let currentPage = 1;
 const itemsPerPage = 10;
 
-const supabaseUrl = 'https://gykbniseplrqvrnabzdh.supabase.co/rest/v1/db_umkm?select=*'; // Ganti dengan URL project Supabase kamu
+const supabaseUrl = 'https://gykbniseplrqvrnabzdh.supabase.co'; // Ganti dengan URL project Supabase kamu
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w'; // Ganti dengan anon key dari Supabase kamu
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
