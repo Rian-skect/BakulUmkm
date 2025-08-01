@@ -330,7 +330,7 @@ const itemsPerPage = 10;
 const { createClient } = window.supabase;
 
 const supabaseUrl = 'https://gykbniseplrqvrnabzdh.supabase.co';
-const supabaseKey = 'YOUR_ANON_KEY'; // pakai anon key, bukan service_role
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w'; // pakai anon key, bukan service_role
 const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
 async function fetchUMKMData() {
