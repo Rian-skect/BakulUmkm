@@ -1,4 +1,3 @@
-
 // Sidebar toggle functionality
 const sidebarToggle = document.getElementById('sidebarToggle');
 const sidebar = document.getElementById('sidebar');
@@ -91,7 +90,7 @@ const barOptions = {
       ticks: {
         color: '#4b3924',
         font: {
-          size: 12
+          size: 11
         }
       }
     }
@@ -327,24 +326,35 @@ let filteredData = [];
 let currentPage = 1;
 const itemsPerPage = 10;
 
-const supabaseUrl = 'https://gykbniseplrqvrnabzdh.supabase.co'; // Ganti dengan URL project Supabase kamu
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w'; // Ganti dengan anon key dari Supabase kamu
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseUrl = 'https://gykbniseplrqvrnabzdh.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24i';
+const supabase = supabaseJs.createClient(supabaseUrl, supabaseKey);
 
-supabase
-  .from('db_umkm') // Ganti 'umkm' sesuai nama tabel kamu di Supabase
-  .select('*')
-  .then(({ data, error }) => {
-    if (error) {
-      console.error('Error fetching data from Supabase:', error);
-      return;
+async function fetchUMKMData() {
+  const { data, error } = await supabase
+    .from('db_umkm') // GANTI dengan nama tabel UMKM di Supabase
+    .select('*');
+
+  if (error) {
+    console.error('Error fetching data from Supabase:', error);
+    const dataInfo = document.getElementById('data-info');
+    if (dataInfo) {
+      dataInfo.textContent = 'Terjadi kesalahan saat memuat data. Silakan refresh halaman.';
+      dataInfo.className = 'text-red-500 text-sm text-center py-4';
     }
+    return [];
+  }
 
-    UMKM_DATA = data;
-    filteredData = [...UMKM_DATA];
-    renderChart();
-    renderTable();
+  return data;
+}
 
+fetchUMKMData().then(data => {
+  console.log("Data dari Supabase:", data);
+
+  UMKM_DATA = data;
+  filteredData = [...UMKM_DATA];
+    const kategoriUnik = [...new Set(data.map(d => d.kategori?.toLowerCase().trim()))];
+    console.log("Kategori tersedia dari data:", kategoriUnik);
     
     // ===== DON'T RENDER TABLE ON INITIAL LOAD =====
     // renderTable(filteredData, currentPage); // REMOVED THIS LINE
@@ -532,7 +542,14 @@ document.getElementById("no-halal-cert").textContent = belumHalal;
     document.getElementById('no-nib-count').textContent = belumSKU;
 
     const uniqueRW = new Set(UMKM_DATA.map(d => d.rw)).size;
- 
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+    const dataInfo = document.getElementById('data-info');
+    if (dataInfo) {
+      dataInfo.textContent = 'Terjadi kesalahan saat memuat data. Silakan refresh halaman.';
+      dataInfo.className = 'text-red-500 text-sm text-center py-4';
+    }
   });
 
 // Get category styling class
@@ -1371,22 +1388,14 @@ document.addEventListener("DOMContentLoaded", function () {
   let umkmDataGlobal = [];
 
   // Ambil data
- const supabase = supabase.createClient('https://gykbniseplrqvrnabzdh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w');
-
-supabase
-  .from('db_umkm')
-  .select('*')
-  .then(({ data, error }) => {
-    if (error) {
-      console.error('Gagal ambil data Supabase:', error);
-      return;
-    }
-
-    UMKM_DATA = data;
-    filteredData = [...UMKM_DATA];
-    
-    // proses render chart dan tabel tetap seperti sebelumnya
-  });
+  fetch('stat/api/get_umkm.php')
+    .then(response => response.json())
+    .then(data => {
+      umkmDataGlobal = data;
+    })
+    .catch(error => {
+      console.error('Gagal memuat data:', error);
+    });
 
   function removeHighlights() {
     const highlightedElements = document.querySelectorAll(".highlight");
