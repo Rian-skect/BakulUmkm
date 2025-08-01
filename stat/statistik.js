@@ -1377,14 +1377,22 @@ document.addEventListener("DOMContentLoaded", function () {
   let umkmDataGlobal = [];
 
   // Ambil data
-  fetch('https://gykbniseplrqvrnabzdh.supabase.co/rest/v1/db_umkm?select=')
-    .then(response => response.json())
-    .then(data => {
-      umkmDataGlobal = data;
-    })
-    .catch(error => {
-      console.error('Gagal memuat data:', error);
-    });
+ const supabase = supabase.createClient('https://gykbniseplrqvrnabzdh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w');
+
+supabase
+  .from('db_umkm')
+  .select('*')
+  .then(({ data, error }) => {
+    if (error) {
+      console.error('Gagal ambil data Supabase:', error);
+      return;
+    }
+
+    UMKM_DATA = data;
+    filteredData = [...UMKM_DATA];
+    
+    // proses render chart dan tabel tetap seperti sebelumnya
+  });
 
   function removeHighlights() {
     const highlightedElements = document.querySelectorAll(".highlight");
