@@ -1388,15 +1388,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let umkmDataGlobal = [];
 
   // Ambil data
-  fetch('stat/api/get_umkm.php')
-    .then(response => response.json())
-    .then(data => {
-      umkmDataGlobal = data;
-    })
-    .catch(error => {
-      console.error('Gagal memuat data:', error);
-    });
-
   function removeHighlights() {
     const highlightedElements = document.querySelectorAll(".highlight");
     highlightedElements.forEach(el => {
