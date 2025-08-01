@@ -335,7 +335,7 @@ const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
 async function fetchUMKMData() {
   const { data, error } = await supabaseClient
-    .from('db_umkm') // sesuaikan nama tabel
+    .from('umkm') // sesuaikan nama tabel
     .select('*');
 
   if (error) {
