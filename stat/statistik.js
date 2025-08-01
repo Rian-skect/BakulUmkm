@@ -327,22 +327,25 @@ let filteredData = [];
 let currentPage = 1;
 const itemsPerPage = 10;
 
-const supabase = supabase.createClient('https://gykbniseplrqvrnabzdh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w');
+const supabaseUrl = 'https://gykbniseplrqvrnabzdh.supabase.co/rest/v1/db_umkm?select=*'; // Ganti dengan URL project Supabase kamu
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w'; // Ganti dengan anon key dari Supabase kamu
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 supabase
-  .from('db_umkm')
+  .from('db_umkm') // Ganti 'umkm' sesuai nama tabel kamu di Supabase
   .select('*')
   .then(({ data, error }) => {
     if (error) {
-      console.error('Gagal ambil data Supabase:', error);
+      console.error('Error fetching data from Supabase:', error);
       return;
     }
 
     UMKM_DATA = data;
     filteredData = [...UMKM_DATA];
-    
-    // proses render chart dan tabel tetap seperti sebelumnya
+    renderChart();
+    renderTable();
   });
+
 
     
     // ===== DON'T RENDER TABLE ON INITIAL LOAD =====
