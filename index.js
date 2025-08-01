@@ -69,13 +69,39 @@ if (searchInput) {
   });
 }
     
- fetch('stat/api/get_umkm.php')
-  .then(response => response.json())
-  .then(data => {
-    const total = data.length;
+// Pastikan pakai createClient dari supabase-js
+const { createClient } = window.supabase;
 
-      // simpan data UMKM
-      const umkmDataGlobal = data;
+const supabaseUrl = 'https://gykbniseplrqvrnabzdh.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w'; // pakai anon key, bukan service_role
+const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+async function fetchUMKMData() {
+  const { data, error } = await supabaseClient
+    .from('umkm') // sesuaikan nama tabel
+    .select('*');
+
+  if (error) {
+    console.error('Error fetching data from Supabase:', error.message);
+    const dataInfo = document.getElementById('data-info');
+    if (dataInfo) {
+      dataInfo.textContent = 'Terjadi kesalahan saat memuat data. Silakan refresh halaman.';
+      dataInfo.className = 'text-red-500 text-sm text-center py-4';
+    }
+    return [];
+  }
+
+  return data;
+}
+
+
+fetchUMKMData().then(data => {
+  console.log("Data dari Supabase:", data);
+
+  UMKM_DATA = data;
+  filteredData = [...UMKM_DATA];
+    const kategoriUnik = [...new Set(data.map(d => d.kategori?.toLowerCase().trim()))];
+    console.log("Kategori tersedia dari data:", kategoriUnik);
 
 function tampilkanUMKM(data, keyword = "") {
   const umkmList = document.getElementById("umkmList");
