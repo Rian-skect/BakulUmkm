@@ -1,3 +1,4 @@
+
 // Sidebar toggle functionality
 const sidebarToggle = document.getElementById('sidebarToggle');
 const sidebar = document.getElementById('sidebar');
@@ -1367,7 +1368,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let umkmDataGlobal = [];
 
   // Ambil data
-  fetch('stat/api/get_umkm.php')
+  fetch('https://gykbniseplrqvrnabzdh.supabase.co/rest/v1/db_umkm?select=')
     .then(response => response.json())
     .then(data => {
       umkmDataGlobal = data;
