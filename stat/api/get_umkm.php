@@ -2,21 +2,22 @@
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 
-$url = "https://gykbniseplrqvrnabzdh.supabase.co/rest/v1/db_umkm?select=*";
-$key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w";
+$supabase_url = getenv("SUPABASE_URL") . "/rest/v1/db_umkm?select=*";
+$supabase_key = getenv("SUPABASE_KEY");
 
-$headers = implode("\r\n", [
-    "apikey: $key",
-    "Authorization: Bearer $key",
+$headers = [
+    "apikey: $supabase_key",
+    "Authorization: Bearer $supabase_key",
     "Content-Type: application/json"
-]);
+];
 
 $options = [
     "http" => [
         "method" => "GET",
-        "header" => $headers
+        "header" => implode("\r\n", $headers)
     ]
 ];
 
-$response = file_get_contents($url, false, stream_context_create($options));
+$response = file_get_contents($supabase_url, false, stream_context_create($options));
+
 echo $response ?: json_encode(["error" => "Request gagal"]);
