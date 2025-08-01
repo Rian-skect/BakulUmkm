@@ -69,37 +69,39 @@ if (searchInput) {
   });
 }
     
- fetch('https://gykbniseplrqvrnabzdh.supabase.co/rest/v1/db_umkm?select=')
-  .then(response => response.json())
-  .then(data => {
-    const total = data.length;
+// Pastikan pakai createClient dari supabase-js
+const { createClient } = window.supabase;
 
-      // simpan data UMKM
-      const umkmDataGlobal = data;
+const supabaseUrl = 'https://gykbniseplrqvrnabzdh.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w'; // pakai anon key, bukan service_role
+const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
-function tampilkanUMKM(data, keyword = "") {
-  const umkmList = document.getElementById("umkmList");
-  const wrapper = document.getElementById("umkmWrapper");
+async function fetchUMKMData() {
+  const { data, error } = await supabaseClient
+    .from('umkm') // sesuaikan nama tabel
+    .select('*');
 
-  if (!umkmList || !wrapper) return;
-
-  // Saat belum ada input pencarian → sembunyikan
-  if (keyword.trim() === "") {
-    wrapper.classList.add("hidden");
-    umkmList.innerHTML = "";
-    return;
+  if (error) {
+    console.error('Error fetching data from Supabase:', error.message);
+    const dataInfo = document.getElementById('data-info');
+    if (dataInfo) {
+      dataInfo.textContent = 'Terjadi kesalahan saat memuat data. Silakan refresh halaman.';
+      dataInfo.className = 'text-red-500 text-sm text-center py-4';
+    }
+    return [];
   }
 
-  // Tampilkan wrapper karena pencarian dilakukan
-  wrapper.classList.remove("hidden");
+  return data;
+}
 
-  // Tidak ada hasil
-  if (data.length === 0) {
-    umkmList.innerHTML = `
-      <li class="col-span-3 text-center text-gray-500 italic">Tidak ditemukan hasil.</li>
-    `;
-    return;
-  }
+
+fetchUMKMData().then(data => {
+  console.log("Data dari Supabase:", data);
+
+  UMKM_DATA = data;
+  filteredData = [...UMKM_DATA];
+    const kategoriUnik = [...new Set(data.map(d => d.kategori?.toLowerCase().trim()))];
+    console.log("Kategori tersedia dari data:", kategoriUnik);
 
   // Ada hasil
   umkmList.innerHTML = data.map(umkm => `
