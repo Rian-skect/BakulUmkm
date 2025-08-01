@@ -91,7 +91,7 @@ const barOptions = {
       ticks: {
         color: '#4b3924',
         font: {
-          size: 11
+          size: 
         }
       }
     }
@@ -327,14 +327,23 @@ let filteredData = [];
 let currentPage = 1;
 const itemsPerPage = 10;
 
-fetch('https://gykbniseplrqvrnabzdh.supabase.co/rest/v1/db_umkm?select=')
-  .then(response => response.json())
-  .then(data => {
-    console.log("Data dari server:", data);
+const supabase = supabase.createClient('https://gykbniseplrqvrnabzdh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5a2JuaXNlcGxycXZybmFiemRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMzEyNTcsImV4cCI6MjA2ODkwNzI1N30.0ESeTAo3RRdVkGL3UGte8-KUjBy2F8Rh40O-bo67P0w');
+
+supabase
+  .from('db_umkm')
+  .select('*')
+  .then(({ data, error }) => {
+    if (error) {
+      console.error('Gagal ambil data Supabase:', error);
+      return;
+    }
+
     UMKM_DATA = data;
-    const kategoriUnik = [...new Set(data.map(d => d.kategori?.toLowerCase().trim()))];
-    console.log("Kategori tersedia dari data:", kategoriUnik);
     filteredData = [...UMKM_DATA];
+    
+    // proses render chart dan tabel tetap seperti sebelumnya
+  });
+
     
     // ===== DON'T RENDER TABLE ON INITIAL LOAD =====
     // renderTable(filteredData, currentPage); // REMOVED THIS LINE
