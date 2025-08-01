@@ -326,7 +326,7 @@ let filteredData = [];
 let currentPage = 1;
 const itemsPerPage = 10;
 
-fetch('api/get_umkm.php')
+fetch('https://gykbniseplrqvrnabzdh.supabase.co/rest/v1/db_umkm?select=')
   .then(response => response.json())
   .then(data => {
     console.log("Data dari server:", data);
